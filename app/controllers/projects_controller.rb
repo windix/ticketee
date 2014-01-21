@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
   include ApplicationHelper
 
   def index
+    @projects = Project.all
   end
 
   def new
