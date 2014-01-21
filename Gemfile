@@ -44,6 +44,10 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+group :development do
+  gem "awesome_print"
+end
+
 group :test, :development do
   gem 'rspec-rails', '~> 2.14'
 end
