@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  include ApplicationHelper
+
   def index
   end
 
