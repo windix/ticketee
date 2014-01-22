@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :get_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
     @projects = Project.all
@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
 
   private
 
-  def get_project
+  def set_project
     @project = Project.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to projects_path, alert: "The project you were looking for could not be found."
