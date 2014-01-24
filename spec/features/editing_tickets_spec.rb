@@ -1,11 +1,22 @@
 require 'spec_helper'
 
 feature "Editing tickets" do
+  let(:user) { FactoryGirl.create(:user) }
   let!(:project) { FactoryGirl.create(:project) }
-  let!(:ticket) { FactoryGirl.create(:ticket, project: project) }
+  let!(:ticket) { FactoryGirl.create(:ticket, project: project, user: user) }
 
   before do
     visit '/'
+    click_link project.name
+    click_link ticket.title
+    click_link "Edit Ticket"
+    expect(page).to have_content("You need to sign in or sign up before continuing.")
+
+    fill_in 'Name', with: user.name
+    fill_in 'Password', with: user.password
+    click_button "Sign in"
+    expect(page).to have_content("Signed in successfully.")
+
     click_link project.name
     click_link ticket.title
     click_link "Edit Ticket"

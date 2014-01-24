@@ -1,19 +1,34 @@
 require 'spec_helper'
 
 feature "Creating Tickets" do
+  let!(:project) { FactoryGirl.create(:project) }
+  let!(:user) { FactoryGirl.create(:user) }
+
   before do
-    FactoryGirl.create(:project, name: "Internet Explorer")
     visit '/'
-    click_link "Internet Explorer"
+    click_link project.name
+    click_link "New Ticket"
+    expect(page).to have_content("You need to sign in or sign up before continuing.")
+
+    fill_in 'Name', with: user.name
+    fill_in 'Password', with: user.password
+    click_button "Sign in"
+    expect(page).to have_content("Signed in successfully.")
+
+    click_link project.name
     click_link "New Ticket"
   end
-  
+
   scenario "Creating a ticket" do
     fill_in "Title", with: "Non-standards compliance"
     fill_in "Description", with: "My pages are ugly!"
     click_button "Create Ticket"
 
     expect(page).to have_content("Ticket has been created.")
+
+    within "#ticket #author" do
+      expect(page).to have_content("Created by #{user.name}")
+    end
   end
   
   scenario "Creating a ticket without valid attributes fails" do
