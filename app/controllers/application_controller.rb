@@ -16,5 +16,9 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
-  helper_method :require_signin!, :current_user
+  def admin_only(&block)
+    block.call if current_user.try(:admin?)
+  end
+
+  helper_method :require_signin!, :current_user, :admin_only
 end
