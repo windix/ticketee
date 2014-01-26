@@ -24,7 +24,7 @@ class Admin::UsersController < Admin::BaseController
     # set password confirmation since we don't require that from admin UI
     params[:user][:password_confirmation] = params[:user][:password]
 
-    params.require('user').permit(:name, :email, :password, :password_confirmation)
+    params.require('user').permit(:name, :email, :password, :password_confirmation, :admin)
   end
 
 end
