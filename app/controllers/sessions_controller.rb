@@ -13,4 +13,11 @@ class SessionsController < ApplicationController
       render 'new'
     end
   end
+
+  def destroy
+    @current_user = nil
+    session.delete(:user_id)
+
+    redirect_to root_url, notice: "Signed out successfully."
+  end
 end

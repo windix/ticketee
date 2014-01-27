@@ -11,7 +11,8 @@
 <nav>
 
 <% if current_user %>
-  Signed in as <%= current_user.name %> | Sign Out
+  Signed in as <%= current_user.name %> | 
+  <%= link_to "Sign out", signout_path %>
 
   <% admin_only do %>
     | <%= link_to "Admin", admin_root_path %>
