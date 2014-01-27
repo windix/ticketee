@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      session[:user_id] = @user.id
       redirect_to projects_path, :notice => 'You have signed up successfully.'
     else
       flash[:alert] = 'Failed to sign up.'
