@@ -35,9 +35,24 @@ describe TicketsController do
     end
 
     it "cannot create a ticket without permission" do
-      # TODO: it actually misses ticket params
-      post :create, project_id: project.id
+      post :create, { project_id: project.id, ticket: { title: 'aaa', description: 'bbb' } }
       cannot_create_tickets!
+    end
+
+    def cannot_update_tickets!
+      response.should redirect_to(project)
+      message = "You cannot edit tickets on this project."
+      flash[:alert].should eql(message)
+    end
+
+    it "cannot edit a ticket without permission" do
+      get :edit, { project_id: project.id, id: ticket.id }
+      cannot_update_tickets!
+    end
+
+    it "cannot update a ticket without permission" do
+      put :update, { project_id: project.id, id: ticket.id, ticket: { title: 'aaa', description: 'bbb' } }
+      cannot_update_tickets!
     end
   end
 
