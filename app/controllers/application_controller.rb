@@ -20,6 +20,12 @@ class ApplicationController < ActionController::Base
     block.call if current_user.try(:admin?)
   end
 
+  def authorized?(permission, thing, &block)
+    block.call if current_user.admin? || can?(permission, thing)
+  end
+
+  helper_method :require_signin!, :current_user, :admin_only, :authorized?
+
   def authorize_admin!
     require_signin!
 
@@ -27,6 +33,4 @@ class ApplicationController < ActionController::Base
       redirect_to root_path, alert: "You must be an admin to do that."
     end
   end
-
-  helper_method :require_signin!, :current_user, :admin_only
 end

@@ -21,5 +21,7 @@
 </ul>
 
 <p>
+<% authorized?(:create_tickets, @project) do %>
   <%= link_to "New Ticket", new_project_ticket_path(@project) %>
+<% end %>
 </p>
