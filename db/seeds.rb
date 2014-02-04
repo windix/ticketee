@@ -20,3 +20,5 @@ User.create([
     admin: false 
   }
 ])
+
+Project.create(name: "Ticketee Beta")
