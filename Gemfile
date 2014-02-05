@@ -46,6 +46,8 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 
 gem 'cancan', '~> 1.6.10'
 
+gem 'carrierwave', '~> 0.9.0'
+
 group :development do
   gem "awesome_print"
 end
