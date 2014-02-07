@@ -6,5 +6,8 @@ class Ticket < ActiveRecord::Base
   belongs_to :project
   belongs_to :user
 
-  mount_uploader :asset, AssetUploader
+  NUM_OF_ASSETS = 3
+
+  has_many :assets
+  accepts_nested_attributes_for :assets
 end

@@ -18,9 +18,15 @@
     <%= f.label :description %><br />
     <%= f.text_area :description %>
   </p>
+
+  <% n = 0 %>
+  <%= f.fields_for :assets do |asset| %>
   <p>
-    <%= f.label :asset, "File" %><br />
-    <%= f.file_field :asset %>
+    <%= asset.label :asset, "File ##{n + 1}" %><br />
+    <%= asset.file_field :asset %>
+    <% n += 1 %>
   </p>
+  <% end %>
+
   <%= f.submit %>
 <% end %>
