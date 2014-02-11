@@ -20,13 +20,11 @@
   </p>
 
   <% n = 0 %>
-  <%= f.fields_for :assets do |asset| %>
-  <p>
-    <%= asset.label :asset, "File ##{n + 1}" %><br />
-    <%= asset.file_field :asset %>
-    <% n += 1 %>
-  </p>
-  <% end %>
+    <div id="files">
+    <%= render partial: "files/form", locals: { n: n } %>
+    </div>
+
+  <%= link_to "Add another file", 'javascript:', id: 'add_another_file' %>
 
   <%= f.submit %>
 <% end %>

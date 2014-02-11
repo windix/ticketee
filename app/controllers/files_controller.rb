@@ -13,4 +13,11 @@ class FilesController < ApplicationController
     end
   end
 
+  def new
+    @ticket = Ticket.new
+    asset = @ticket.assets.build
+
+    render partial: "form", locals: { n: params[:n].to_i, asset: asset }
+  end
+
 end

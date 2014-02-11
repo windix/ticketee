@@ -8,7 +8,7 @@ class TicketsController < ApplicationController
 
   def new
     @ticket = @project.tickets.build
-    Ticket::NUM_OF_ASSETS.times { @ticket.assets.build }
+    @ticket.assets.build
   end
 
   def create
@@ -53,7 +53,7 @@ class TicketsController < ApplicationController
   end
 
   def set_ticket
-    @ticket = @project.tickets.find(params[:project_id])
+    @ticket = @project.tickets.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to project_tickets_path, alert: "The ticket you were looking for could not be found."
   end
