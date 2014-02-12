@@ -1,9 +1,11 @@
 <div id='ticket'>
-  <h2><%= @ticket.title %></h2>
+  <h2><%= @ticket.title %></h2>  
   <span id="author">Created by <%= @ticket.user.name %></span>
 
   <%= simple_format(@ticket.description) %>
-  
+
+  <%= render @ticket.state if @ticket.state %>
+
   <% if @ticket.assets.present? %>
   <h3>Attached Files</h3>
   <div class="assets">
@@ -20,7 +22,7 @@
 
   <div id='comments'>
     <h3>Comments</h3>
-    <% @ticket.comments.each do |comment| %>
+    <% @ticket.comments.select(&:persisted?).each do |comment| %>
       <%= div_for(comment) do %>
         <h4>Added by <%= comment.user.name %> on <%= comment.created_at %>:</h4>
         <p><%= simple_format(comment.content) %></p>

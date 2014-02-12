@@ -22,3 +22,18 @@ User.create([
 ])
 
 Project.create(name: "Ticketee Beta")
+
+State.create([
+  { name: "New",
+    color: "white",
+    background: "#85FF00"
+  },
+  { name: "Open",
+    color: "white",
+    background: "#00CFFD"
+  },
+  { name: "Closed",
+    color: "white",
+    background: "black"
+  }
+])

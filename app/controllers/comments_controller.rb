@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to [@ticket.project, @ticket], notice: "Comment has been created."
     else
+      @states = State.all
       flash[:alert] = "Comment has not been created."
       render "tickets/show"
     end
@@ -23,7 +24,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:content)
+    params.require(:comment).permit(:content, :state_id)
   end
 
 end

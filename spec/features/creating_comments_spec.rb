@@ -6,6 +6,8 @@ feature "Creating comments" do
   let!(:ticket) { FactoryGirl.create(:ticket, project: project, user: user) }
 
   before do
+    FactoryGirl.create(:state, name: 'Open')
+
     define_permission!(user, :view, project)
     # define_permission!(user, :creating_comments, project)
 
@@ -32,5 +34,17 @@ feature "Creating comments" do
 
     expect(page).to have_content("Comment has not been created.")
     expect(page).to have_content("Content can't be blank")
+  end
+
+  scenario "Changing a ticket's state" do
+    fill_in "Leave a comment", with: "This is an open issue."
+    select "Open", from: "State"
+    click_button "Create Comment"
+
+    expect(page).to have_content("Comment has been created.")
+
+    within("#ticket .state") do
+      expect(page).to have_content("Open")
+    end    
   end
 end

@@ -15,5 +15,10 @@
     <%= f.text_area :content %>
   </p>
 
+  <p>
+    <%= f.label :state_id %><br />
+    <%= f.select :state_id, @states.collect { |s| [s.name, s.id] }, selected: @ticket.state_id %>
+  </p>
+
   <%= f.submit %>
 <% end %>
