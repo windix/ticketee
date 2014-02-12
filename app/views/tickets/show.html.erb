@@ -18,6 +18,18 @@
   </div>
   <% end %>
 
+  <div id='comments'>
+    <h3>Comments</h3>
+    <% @ticket.comments.each do |comment| %>
+      <%= div_for(comment) do %>
+        <h4>Added by <%= comment.user.name %> on <%= comment.created_at %>:</h4>
+        <p><%= simple_format(comment.content) %></p>
+      <% end %>
+    <% end %>
+
+    <%= render "comments/form" %>
+  </div>
+
   <p>
   <% authorized?(:edit_tickets, @project) do %>
     <%= link_to "Edit Ticket", [:edit, @project, @ticket] %>
